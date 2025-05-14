@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Cost Ropes</title>
+    <script>
+        function mincost(arr) {
+            // If only one rope is left, no cost to connect, return 0
+            if (arr.length <= 1) return 0;
+
+            let cost = 0;
+
+            // Sort the array to simulate a min-heap
+            arr.sort((a, b) => a - b);
+
+            // Combine ropes until we are left with one rope
+            while (arr.length > 1) {
+                // Pop two smallest ropes (min-heap behavior)
+                let first = arr.shift();
+                let second = arr.shift();
+
+                // The cost to connect them
+                let sum = first + second;
+                cost += sum;
+
+                // Insert the combined rope back into the array
+                arr.push(sum);
+
+                // Re-sort the array to maintain the min-heap property
+                arr.sort((a, b) => a - b);
+            }
+
+            return cost;
+        }
+
+        function calculateMinCost() {
+            // Get the input from the user
+            const input = document.getElementById("ropeLengths").value;
+
+            // Convert input string to an array of numbers
+            const ropes = input.split(",").map(Number);
+
+            // Calculate the minimum cost
+            const result = mincost(ropes);
+
+            // Display the result
+            document.getElementById("result").innerText = `Minimum Cost: ${result}`;
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Min Cost Ropes</h1>
+    <p>Enter the lengths of the ropes (comma separated):</p>
+    <input type="text" id="ropeLengths" placeholder="e.g. 4, 3, 2, 6" />
+    <button onclick="calculateMinCost()">Calculate Minimum Cost</button>
+
+    <p id="result"></p>
+
+</body>
+</html>
 
