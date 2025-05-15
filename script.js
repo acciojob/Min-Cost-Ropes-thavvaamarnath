@@ -1,27 +1,22 @@
+function firstWord(str) {
+    // Trim leading spaces
+    str = str.trimStart();
 
-function mincost(arr) {
-  if (arr.length <= 1) return 0;
+    // Find the index of the first space
+    const spaceIndex = str.indexOf(' ');
 
-  // Min heap using a priority queue pattern
-  const heap = [...arr];
-  heap.sort((a, b) => a - b); // initial heapify
+    // If no space is found, return the entire string
+    if (spaceIndex === -1) {
+        return str;
+    }
 
-  let totalCost = 0;
-
-  while (heap.length > 1) {
-    // Pop two smallest elements
-    const first = heap.shift();
-    const second = heap.shift();
-
-    const cost = first + second;
-    totalCost += cost;
-
-    // Insert the combined rope back into the heap
-    heap.push(cost);
-    heap.sort((a, b) => a - b); // Re-heapify
-  }
-
-  return totalCost;
+    // Return the substring from start to the first space
+    return str.substring(0, spaceIndex);
 }
 
-module.exports = mincost;
+// Example usage:
+console.log(firstWord('see and stop'));   // Output: 'see'
+console.log(firstWord(' Hello World!'));  // Output: 'Hello'
+console.log(firstWord('12345'));          // Output: '12345'
+console.log(firstWord(''));               // Output: ''
+
